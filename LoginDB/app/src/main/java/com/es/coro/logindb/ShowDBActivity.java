@@ -53,31 +53,5 @@ public class ShowDBActivity extends AppCompatActivity {
         {
             textViewWelcome.setText("Los valores introducidos son incorrectos");
         }
-
-
-      /*  Persona persona1 = new Persona(1, "Juan");
-        Persona persona2 = new Persona(2, "Conchi");
-        Persona persona3 = new Persona(3, "Manolo");
-
-        baseDatosCochePersona.insertarpersona(persona1);
-        baseDatosCochePersona.insertarpersona(persona2);
-        baseDatosCochePersona.insertarpersona(persona3);
-
-        Coche coche1 = new Coche("Ferrari", persona2);
-        Coche coche2 = new Coche("Renault", persona2);
-        Coche coche3 = new Coche("Fiat", persona1);
-
-
-        baseDatosCochePersona.insertarcoche(coche1);
-        baseDatosCochePersona.insertarcoche(coche2);
-        baseDatosCochePersona.insertarcoche(coche3);
-
-        List<Coche> cocheList = baseDatosCochePersona.consultarcoches_xpersona(persona2);
-
-        for (Coche carro : cocheList){
-
-            Log.e("TAG:", "Coche= "+carro.getModelo());
-        }
-*/
     }
 }

@@ -17,7 +17,7 @@ public class BaseDatosReg extends SQLiteOpenHelper {
 
     private int fechaActual = Calendar.DATE;
     private static final String SQL_CREA_TABLA_USUARIOS = "create table USUARIOS (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, password TEXT,UNIQUE (nombre))";
-    private static final String SQL_CREA_TABLA_IMCS = "create table IMCS (fecha INTEGER, imcs DECINAL, id_usuario INTEGER, PRIMARY KEY (id_usuario,fecha), FOREING KEY (id_usuario) REFERENCES USUARIOS (id))";
+    private static final String SQL_CREA_TABLA_IMCS = "create table IMCS (fecha INTEGER, imcs DECINAL, id_usuario INTEGER, PRIMARY KEY (id_usuario,fecha), FOREIGN KEY (id_usuario) REFERENCES USUARIOS (id))";
 
     public BaseDatosReg(Context context, String nombre, SQLiteDatabase.CursorFactory cursor, int version) {
         super(context, nombre, cursor, version);
@@ -37,7 +37,7 @@ public class BaseDatosReg extends SQLiteOpenHelper {
     public void insertarusuarios(Usuarios usuarios) {
 
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.execSQL("Insert into Usuarios (id, nombre, password) values ('" + usuarios.getNombre() + "', " + usuarios.getPassword() + ")");
+        sqLiteDatabase.execSQL("Insert into Usuarios ( nombre, password) values ('" + usuarios.getNombre() + "', " + usuarios.getPassword() + ")");
         sqLiteDatabase.close();
     }
 
