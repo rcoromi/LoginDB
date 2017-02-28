@@ -15,10 +15,9 @@ import java.util.List;
 
 public class BaseDatosReg extends SQLiteOpenHelper {
 
-
     private int fechaActual = Calendar.DATE;
     private static final String SQL_CREA_TABLA_USUARIOS = "create table USUARIOS (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, password TEXT,UNIQUE (nombre))";
-    private static final String SQL_CREA_TABLA_IMCS = "create table IMCS (fecha INTEGER, imc DECINAL, id_usuario INTEGER, PRIMARY KEY (id_usuario,fecha), FOREING KEY (id_usuario) REFERENCES USUARIOS (id))";
+    private static final String SQL_CREA_TABLA_IMCS = "create table IMCS (fecha INTEGER, imcs DECINAL, id_usuario INTEGER, PRIMARY KEY (id_usuario,fecha), FOREING KEY (id_usuario) REFERENCES USUARIOS (id))";
 
     public BaseDatosReg(Context context, String nombre, SQLiteDatabase.CursorFactory cursor, int version) {
         super(context, nombre, cursor, version);
@@ -26,10 +25,8 @@ public class BaseDatosReg extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
         sqLiteDatabase.execSQL(SQL_CREA_TABLA_USUARIOS);
         sqLiteDatabase.execSQL(SQL_CREA_TABLA_IMCS);
-
     }
 
     @Override
@@ -37,49 +34,34 @@ public class BaseDatosReg extends SQLiteOpenHelper {
 
     }
 
-    public void insertarcoche(Usuarios usuarios) {
+    public void insertarusuarios(Usuarios usuarios) {
 
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.execSQL("Insert into Coche (modelo, id_persona) values ('" + usuarios.getModelo() + "', " + coche.getPersona().getId() + ")");
+        sqLiteDatabase.execSQL("Insert into Usuarios (id, nombre, password) values ('" + usuarios.getNombre() + "', " + usuarios.getPassword() + ")");
         sqLiteDatabase.close();
-
     }
 
-    public void insertarpersona(Imcs imcs) {
+    public void insertarimcs(Imcs imcs) {
 
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.execSQL("Insert into Persona (modelo, id_persona) values ('" + imcs.getId() + "', '" + persona.getNombre() + "')");
+        sqLiteDatabase.execSQL("Insert into Imcs (fecha,imc, id_usuario) values ('" + imcs.getFecha() + "', '" + imcs.getImcs() + "' , '" +imcs.getId_usuario()+"' )");
         sqLiteDatabase.close();
-
     }
 
-    public List<Usuarios> consultarcoches_xpersona(Imcs imcs) {
+    public String consultar_usuarios(Usuarios usuarios) {
 
-        List<Usuarios> cocheList = null;
-
-        String consulta = "select modelo from Coche where id_persona=" + persona.getId();
+        String consulta = "select password from USUARIOS where nombre=" + usuarios.getNombre();
 
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(consulta, null);
-
-        if ((cursor != null) && (cursor.getCount() > 0)) {
-            //tnemos datos
+        String password = null;
+        if ((cursor != null) && (cursor.getCount() > 0))
+        {
             cursor.moveToFirst();
-            cocheList = new ArrayList<>(Usuarios);
-            String modelo = null;
-            Coche coche = null;
-            do {
 
-                cursor.getString(0);
-                coche = new Coche(modelo);
-                cocheList.add(coche);
-
-            } while (cursor.moveToNext());
-            cursor.close();
-
+            password = cursor.getString(1);
+            sqLiteDatabase.close();
         }
-
-        sqLiteDatabase.close();
-        return cocheList;
+        return password;
     }
 }

@@ -10,15 +10,6 @@ public class Usuarios {
     private String nombre;
     private String password;
 
-    public Usuarios(String nombre, String password) {
-
-        this.nombre = nombre;
-        this.password = password;
-    }
-
-    public Usuarios() {
-    }
-
     public int getId() {
         return id;
     }
@@ -31,11 +22,25 @@ public class Usuarios {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    public void setUser(String nombre, String password) {
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Usuarios(int id, String nombre, String password) {
+        this.id = id;
+        this.nombre = nombre;
+        this.password = password;
+    }
+
+    public Usuarios(String nombre, String password) {
         this.nombre = nombre;
         this.password = password;
     }

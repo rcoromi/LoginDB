@@ -1,12 +1,15 @@
 package com.es.coro.logindb;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 
 public class LoginsActivity extends AppCompatActivity {
 
@@ -16,6 +19,7 @@ public class LoginsActivity extends AppCompatActivity {
     private TextView textViewUser;
     private EditText editTextPassword;
     private TextView textViewPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,14 @@ public class LoginsActivity extends AppCompatActivity {
                 /*2º Añadimos el parametro extra que queremos pasar y luego iniciamos la actividad*/
                 buttonEntrar.putExtra("read_User", read_User);
                 buttonEntrar.putExtra("read_Password", read_Password);
+
+
+                //Creamos el fichero de preferencias si no existe y si existe creamos la referecia a dicho fichero
+                SharedPreferences sharedPreferences = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
+                //Creamos la variable de edición del shared preferences
+                SharedPreferences.Editor update_sharedpreferences= sharedPreferences.edit();
+                update_sharedpreferences.putBoolean("firstLogging", true);
+                update_sharedpreferences.commit();
                 /*3º Iniciamos la actividad*/
                 startActivity(buttonEntrar);
 
